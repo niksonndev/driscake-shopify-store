@@ -1,0 +1,27 @@
+:root {
+  /* ── Extraído do index.css gerado pelo Figma ── */
+
+  /* Colors */
+  --color-bg: #faf7f4;
+  --color-fg: #2c2c2c;
+  --color-card: #f0eae2;
+  --color-muted-bg: #ede6dc;
+  --color-muted-fg: #7a6e68;
+  --color-primary: #d4929a;
+  --color-primary-fg: #faf7f4;
+  --color-border: rgba(44, 44, 44, 0.1);
+  --color-secondary: #f0eae2;
+
+  /* Typography */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Jost', system-ui, sans-serif;
+
+  /* Radius — baseado no --radius: 0.625rem do index.css */
+  --radius-sm: calc(0.625rem - 4px);
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+  --radius-2xl: 1.5rem; /* cards de produto */
+  --radius-3xl: 2.5rem; /* hero image */
+  --radius-pill: 999px; /* botões pill */
+}
