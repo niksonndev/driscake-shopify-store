@@ -1,0 +1,486 @@
+<div class="cake-hero">
+  <div class="cake-hero__container">
+    <!-- Left: Content Column -->
+    <div class="cake-hero__content">
+      <!-- Badge -->
+      <div class="cake-hero__badge">
+        <svg class="cake-hero__badge-icon" viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
+          <polygon points="12 2 15.09 10.26 23.77 11.27 17.88 17.38 19.54 26.09 12 22.77 4.46 26.09 6.12 17.38 0.23 11.27 8.91 10.26"/>
+        </svg>
+        <span class="cake-hero__badge-text">{{ section.settings.badge_text }}</span>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="cake-hero__heading">
+        {{ section.settings.heading }}
+        <br>
+        <span class="cake-hero__heading-highlight">{{ section.settings.heading_highlight }}</span>
+      </h1>
+
+      <!-- Description -->
+      <p class="cake-hero__description">
+        {{ section.settings.description }}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="cake-hero__cta-wrapper">
+        <a href="{{ section.settings.cta_primary_url }}" class="cake-hero__cta cake-hero__cta--primary">
+          {{ section.settings.cta_primary_label }}
+          <svg class="cake-hero__cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+        <a href="{{ section.settings.cta_secondary_url }}" class="cake-hero__cta cake-hero__cta--secondary">
+          {{ section.settings.cta_secondary_label }}
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="cake-hero__stats">
+        {% for block in section.blocks %}
+          {% if block.type == 'stat' %}
+            <div class="cake-hero__stat">
+              <span class="cake-hero__stat-value">{{ block.settings.value }}</span>
+              <span class="cake-hero__stat-label">{{ block.settings.label }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Right: Hero Image Column -->
+    <div class="cake-hero__image-wrapper">
+      <div class="cake-hero__image-bg"></div>
+      <div class="cake-hero__image-container">
+        {% if section.settings.hero_image != blank %}
+          {{ section.settings.hero_image | image_url: width: 1040 | img_tag: section.settings.hero_image.alt, loading: 'lazy', class: 'cake-hero__image' }}
+        {% else %}
+          <img src="https://via.placeholder.com/520x650" alt="Hero image" class="cake-hero__image">
+        {% endif %}
+
+        <!-- Floating Tag -->
+        {% if section.settings.tag_label != blank %}
+          <div class="cake-hero__floating-tag">
+            <div class="cake-hero__tag-image">
+              {% if section.settings.tag_image != blank %}
+                {{ section.settings.tag_image | image_url: width: 80 | img_tag: section.settings.tag_image.alt, loading: 'lazy' }}
+              {% else %}
+                <img src="https://via.placeholder.com/80x80" alt="Tag image">
+              {% endif %}
+            </div>
+            <div class="cake-hero__tag-content">
+              <p class="cake-hero__tag-label">{{ section.settings.tag_label }}</p>
+              <p class="cake-hero__tag-description">{{ section.settings.tag_description }}</p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cake-hero {
+    --_hero-color-primary: var(--color-primary);
+    --_hero-color-primary-fg: var(--color-primary-fg);
+    --_hero-color-fg: var(--color-fg);
+    --_hero-color-bg: var(--color-bg);
+    --_hero-color-card: var(--color-card);
+    --_hero-color-muted-fg: var(--color-muted-fg);
+    --_hero-color-border: var(--color-border);
+    --_hero-font-heading: var(--font-heading);
+    --_hero-font-body: var(--font-body);
+    --_hero-radius-pill: var(--radius-pill);
+    --_hero-radius-2xl: var(--radius-2xl);
+    --_hero-radius-3xl: var(--radius-3xl);
+
+    width: 100%;
+    font-family: var(--_hero-font-body);
+    color: var(--_hero-color-fg);
+  }
+
+  .cake-hero__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cake-hero__container {
+      grid-template-columns: 1fr 1fr;
+      padding: 4rem 2.5rem 6rem;
+    }
+  }
+
+  /* ── Badge ── */
+  .cake-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--_hero-color-primary);
+    width: fit-content;
+  }
+
+  .cake-hero__badge-icon {
+    flex-shrink: 0;
+  }
+
+  .cake-hero__badge-text {
+    display: block;
+  }
+
+  /* ── Heading ── */
+  .cake-hero__heading {
+    font-family: var(--_hero-font-heading);
+    font-size: 3rem;
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--_hero-color-fg);
+    margin: 2rem 0 0;
+  }
+
+  @media (min-width: 1024px) {
+    .cake-hero__heading {
+      font-size: 3.75rem;
+    }
+  }
+
+  .cake-hero__heading-highlight {
+    color: var(--_hero-color-primary);
+  }
+
+  /* ── Description ── */
+  .cake-hero__description {
+    font-size: 1rem;
+    line-height: 1.625;
+    color: var(--_hero-color-muted-fg);
+    max-width: 28rem;
+    margin: 1.5rem 0 0;
+  }
+
+  /* ── CTA Wrapper ── */
+  .cake-hero__cta-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* ── CTA Button ── */
+  .cake-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--_hero-radius-pill);
+    text-decoration: none;
+    transition: all 200ms ease-out;
+    cursor: pointer;
+    border: none;
+    font-family: var(--_hero-font-body);
+  }
+
+  .cake-hero__cta--primary {
+    background-color: var(--_hero-color-primary);
+    color: var(--_hero-color-primary-fg);
+  }
+
+  .cake-hero__cta--primary:hover {
+    opacity: 0.9;
+  }
+
+  .cake-hero__cta--secondary {
+    color: var(--_hero-color-muted-fg);
+    background: none;
+    text-decoration: underline;
+    text-decoration-color: var(--_hero-color-border);
+    text-underline-offset: 0.25rem;
+  }
+
+  .cake-hero__cta--secondary:hover {
+    color: var(--_hero-color-fg);
+  }
+
+  .cake-hero__cta-icon {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 2;
+  }
+
+  /* ── Stats ── */
+  .cake-hero__stats {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .cake-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .cake-hero__stat-value {
+    font-family: var(--_hero-font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--_hero-color-fg);
+    line-height: 1;
+  }
+
+  .cake-hero__stat-label {
+    font-size: 0.75rem;
+    color: var(--_hero-color-muted-fg);
+  }
+
+  /* ── Image Wrapper ── */
+  .cake-hero__image-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cake-hero__image-wrapper {
+      justify-content: flex-end;
+    }
+  }
+
+  .cake-hero__image-container {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--_hero-radius-3xl);
+    overflow: hidden;
+    background-color: var(--_hero-color-card);
+  }
+
+  /* Image Background Decoration */
+  .cake-hero__image-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--_hero-radius-3xl);
+    translate: 1rem 1rem;
+    opacity: 0.5;
+    background-color: var(--_hero-color-card);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .cake-hero__image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* ── Floating Tag ── */
+  .cake-hero__floating-tag {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: rgba(250, 247, 244, 0.9);
+    backdrop-filter: blur(4px);
+    border-radius: 0.875rem;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+  }
+
+  .cake-hero__tag-image {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background-color: var(--_hero-color-card);
+    flex-shrink: 0;
+  }
+
+  .cake-hero__tag-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cake-hero__tag-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .cake-hero__tag-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--_hero-color-fg);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .cake-hero__tag-description {
+    font-size: 0.75rem;
+    color: var(--_hero-color-muted-fg);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .cake-hero__heading {
+      font-size: 2.25rem;
+    }
+
+    .cake-hero__stats {
+      gap: 1rem;
+    }
+
+    .cake-hero__stat-value {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero - Bolos Artesanais",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Confeitaria artesanal em Maceió"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Bolos artesanais"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading Highlight",
+      "default": "feitos com amor",
+      "info": "This text will be highlighted in the primary color"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Encomendas para datas especiais em Maceió. Cada bolo é feito à mão, com ingredientes selecionados e muito carinho."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA Label",
+      "default": "Ver cardápio"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_url",
+      "label": "Primary CTA URL",
+      "default": "https://wa.me/5582988664157"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary CTA Label",
+      "default": "Como funciona?"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_url",
+      "label": "Secondary CTA URL",
+      "default": "https://wa.me/5582988664157"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image",
+      "info": "Recommended size: 520x650px (aspect ratio 4:5)"
+    },
+    {
+      "type": "text",
+      "id": "tag_label",
+      "label": "Floating Tag Label",
+      "default": "Novo sabor disponível"
+    },
+    {
+      "type": "text",
+      "id": "tag_description",
+      "label": "Floating Tag Description",
+      "default": "Bolo de Morango com Mascarpone"
+    },
+    {
+      "type": "image_picker",
+      "id": "tag_image",
+      "label": "Floating Tag Image",
+      "info": "Recommended size: 80x80px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "200+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Bolos entregues"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero - Bolos Artesanais",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "200+",
+            "label": "Bolos entregues"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "98%",
+            "label": "Clientes satisfeitos"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "5★",
+            "label": "Avaliação média"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
