@@ -4,9 +4,7 @@
     <div class="cake-hero__content">
       <!-- Badge -->
       <div class="cake-hero__badge">
-        <svg class="cake-hero__badge-icon" viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
-          <polygon points="12 2 15.09 10.26 23.77 11.27 17.88 17.38 19.54 26.09 12 22.77 4.46 26.09 6.12 17.38 0.23 11.27 8.91 10.26"/>
-        </svg>
+        {% render 'icon-star' %}
         <span class="cake-hero__badge-text">{{ section.settings.badge_text }}</span>
       </div>
 
@@ -26,7 +24,15 @@
       <div class="cake-hero__cta-wrapper">
         <a href="{{ section.settings.cta_primary_url }}" class="cake-hero__cta cake-hero__cta--primary">
           {{ section.settings.cta_primary_label }}
-          <svg class="cake-hero__cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <svg
+            class="cake-hero__cta-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="16"
+            height="16"
+          >
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
@@ -53,7 +59,11 @@
       <div class="cake-hero__image-bg"></div>
       <div class="cake-hero__image-container">
         {% if section.settings.hero_image != blank %}
-          {{ section.settings.hero_image | image_url: width: 1040 | img_tag: section.settings.hero_image.alt, loading: 'lazy', class: 'cake-hero__image' }}
+          {{
+            section.settings.hero_image
+            | image_url: width: 1040
+            | img_tag: section.settings.hero_image.alt, loading: 'lazy', class: 'cake-hero__image'
+          }}
         {% else %}
           <img src="https://via.placeholder.com/520x650" alt="Hero image" class="cake-hero__image">
         {% endif %}
@@ -63,7 +73,11 @@
           <div class="cake-hero__floating-tag">
             <div class="cake-hero__tag-image">
               {% if section.settings.tag_image != blank %}
-                {{ section.settings.tag_image | image_url: width: 80 | img_tag: section.settings.tag_image.alt, loading: 'lazy' }}
+                {{
+                  section.settings.tag_image
+                  | image_url: width: 80
+                  | img_tag: section.settings.tag_image.alt, loading: 'lazy'
+                }}
               {% else %}
                 <img src="https://via.placeholder.com/80x80" alt="Tag image">
               {% endif %}
@@ -80,6 +94,10 @@
 </div>
 
 <style>
+  .shopify-section:has(.cake-hero) {
+    display: block;
+  }
+
   .cake-hero {
     --_hero-color-primary: var(--color-primary);
     --_hero-color-primary-fg: var(--color-primary-fg);
@@ -97,6 +115,7 @@
     width: 100%;
     font-family: var(--_hero-font-body);
     color: var(--_hero-color-fg);
+    background-color: var(--_hero-color-bg);
   }
 
   .cake-hero__container {
@@ -237,17 +256,18 @@
     font-family: var(--_hero-font-heading);
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--_hero-color-fg);
+    color: var(--color-fg);
     line-height: 1;
   }
 
   .cake-hero__stat-label {
     font-size: 0.75rem;
-    color: var(--_hero-color-muted-fg);
+    color: var(--color-fg);
   }
 
   /* ── Image Wrapper ── */
   .cake-hero__image-wrapper {
+    position: relative;
     display: flex;
     justify-content: center;
   }
