@@ -4,7 +4,8 @@
     <div class="cake-hero__content">
       <!-- Badge -->
       <div class="cake-hero__badge">
-        {% render 'icon-star' %}
+        {% render 'icon-star'
+          , size: 14 %}
         <span class="cake-hero__badge-text">{{ section.settings.badge_text }}</span>
       </div>
 
@@ -24,17 +25,8 @@
       <div class="cake-hero__cta-wrapper">
         <a href="{{ section.settings.cta_primary_url }}" class="cake-hero__cta cake-hero__cta--primary">
           {{ section.settings.cta_primary_label }}
-          <svg
-            class="cake-hero__cta-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            width="16"
-            height="16"
-          >
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+          {% render 'icon-chevron'
+            , size: 14 %}
         </a>
         <a href="{{ section.settings.cta_secondary_url }}" class="cake-hero__cta cake-hero__cta--secondary">
           {{ section.settings.cta_secondary_label }}
@@ -60,12 +52,13 @@
       <div class="cake-hero__image-container">
         {% if section.settings.hero_image != blank %}
           {{
-            section.settings.hero_image
-            | image_url: width: 1040
-            | img_tag: section.settings.hero_image.alt, loading: 'lazy', class: 'cake-hero__image'
+            section.settings.hero_image | image_url: width: 1040 | img_tag: section.settings.hero_image.alt, loading: 'lazy', class: 'cake-hero__image'
           }}
         {% else %}
-          <img src="https://via.placeholder.com/520x650" alt="Hero image" class="cake-hero__image">
+          <img
+            src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=1040&h=1300&fit=crop&auto=format"
+            alt="Hero image"
+            class="cake-hero__image">
         {% endif %}
 
         <!-- Floating Tag -->
@@ -74,12 +67,10 @@
             <div class="cake-hero__tag-image">
               {% if section.settings.tag_image != blank %}
                 {{
-                  section.settings.tag_image
-                  | image_url: width: 80
-                  | img_tag: section.settings.tag_image.alt, loading: 'lazy'
+                  section.settings.tag_image | image_url: width: 80 | img_tag: section.settings.tag_image.alt, loading: 'lazy'
                 }}
               {% else %}
-                <img src="https://via.placeholder.com/80x80" alt="Tag image">
+                <img src="https://images.unsplash.com/photo-1568827999250-3f6afff96e66?w=80&h=80&fit=crop&auto=format" alt="Tag image">
               {% endif %}
             </div>
             <div class="cake-hero__tag-content">
@@ -146,10 +137,6 @@
     text-transform: uppercase;
     color: var(--_hero-color-primary);
     width: fit-content;
-  }
-
-  .cake-hero__badge-icon {
-    flex-shrink: 0;
   }
 
   .cake-hero__badge-text {
@@ -229,12 +216,6 @@
 
   .cake-hero__cta--secondary:hover {
     color: var(--_hero-color-fg);
-  }
-
-  .cake-hero__cta-icon {
-    width: 1rem;
-    height: 1rem;
-    stroke-width: 2;
   }
 
   /* ── Stats ── */
@@ -377,130 +358,119 @@
 </style>
 
 {% schema %}
-{
-  "name": "Hero - Bolos Artesanais",
-  "settings": [
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "Confeitaria artesanal em Maceió"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Bolos artesanais"
-    },
-    {
-      "type": "text",
-      "id": "heading_highlight",
-      "label": "Heading Highlight",
-      "default": "feitos com amor",
-      "info": "This text will be highlighted in the primary color"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Encomendas para datas especiais em Maceió. Cada bolo é feito à mão, com ingredientes selecionados e muito carinho."
-    },
-    {
-      "type": "text",
-      "id": "cta_primary_label",
-      "label": "Primary CTA Label",
-      "default": "Ver cardápio"
-    },
-    {
-      "type": "text",
-      "id": "cta_primary_url",
-      "label": "Primary CTA URL",
-      "default": "https://wa.me/5582988664157"
-    },
-    {
-      "type": "text",
-      "id": "cta_secondary_label",
-      "label": "Secondary CTA Label",
-      "default": "Como funciona?"
-    },
-    {
-      "type": "text",
-      "id": "cta_secondary_url",
-      "label": "Secondary CTA URL",
-      "default": "https://wa.me/5582988664157"
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero Image",
-      "info": "Recommended size: 520x650px (aspect ratio 4:5)"
-    },
-    {
-      "type": "text",
-      "id": "tag_label",
-      "label": "Floating Tag Label",
-      "default": "Novo sabor disponível"
-    },
-    {
-      "type": "text",
-      "id": "tag_description",
-      "label": "Floating Tag Description",
-      "default": "Bolo de Morango com Mascarpone"
-    },
-    {
-      "type": "image_picker",
-      "id": "tag_image",
-      "label": "Floating Tag Image",
-      "info": "Recommended size: 80x80px"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "stat",
-      "name": "Stat",
-      "settings": [
-        {
-          "type": "text",
-          "id": "value",
-          "label": "Value",
-          "default": "200+"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Bolos entregues"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Hero - Bolos Artesanais",
-      "blocks": [
-        {
-          "type": "stat",
-          "settings": {
-            "value": "200+",
-            "label": "Bolos entregues"
+  {
+    "name": "Hero - Bolos Artesanais",
+    "settings": [
+      {
+        "type": "text",
+        "id": "badge_text",
+        "label": "Badge Text",
+        "default": "Confeitaria artesanal em Maceió"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Bolos artesanais"
+      },
+      {
+        "type": "text",
+        "id": "heading_highlight",
+        "label": "Heading Highlight",
+        "default": "feitos com amor",
+        "info": "This text will be highlighted in the primary color"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description",
+        "default": "Encomendas para datas especiais em Maceió. Cada bolo é feito à mão, com ingredientes selecionados e muito carinho."
+      }, {
+        "type": "text",
+        "id": "cta_primary_label",
+        "label": "Primary CTA Label",
+        "default": "Ver cardápio"
+      }, {
+        "type": "text",
+        "id": "cta_primary_url",
+        "label": "Primary CTA URL",
+        "default": "https://wa.me/5582988664157"
+      }, {
+        "type": "text",
+        "id": "cta_secondary_label",
+        "label": "Secondary CTA Label",
+        "default": "Como funciona?"
+      }, {
+        "type": "text",
+        "id": "cta_secondary_url",
+        "label": "Secondary CTA URL",
+        "default": "https://wa.me/5582988664157"
+      }, {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero Image",
+        "info": "Recommended size: 520x650px (aspect ratio 4:5)"
+      }, {
+        "type": "text",
+        "id": "tag_label",
+        "label": "Floating Tag Label",
+        "default": "Novo sabor disponível"
+      }, {
+        "type": "text",
+        "id": "tag_description",
+        "label": "Floating Tag Description",
+        "default": "Bolo de Morango com Mascarpone"
+      }, {
+        "type": "image_picker",
+        "id": "tag_image",
+        "label": "Floating Tag Image",
+        "info": "Recommended size: 80x80px"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "stat",
+        "name": "Stat",
+        "settings": [
+          {
+            "type": "text",
+            "id": "value",
+            "label": "Value",
+            "default": "200+"
+          }, {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "Bolos entregues"
           }
-        },
-        {
-          "type": "stat",
-          "settings": {
-            "value": "98%",
-            "label": "Clientes satisfeitos"
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero - Bolos Artesanais",
+        "blocks": [
+          {
+            "type": "stat",
+            "settings": {
+              "value": "200+",
+              "label": "Bolos entregues"
+            }
+          }, {
+            "type": "stat",
+            "settings": {
+              "value": "98%",
+              "label": "Clientes satisfeitos"
+            }
+          }, {
+            "type": "stat",
+            "settings": {
+              "value": "5★",
+              "label": "Avaliação média"
+            }
           }
-        },
-        {
-          "type": "stat",
-          "settings": {
-            "value": "5★",
-            "label": "Avaliação média"
-          }
-        }
-      ]
-    }
-  ]
-}
+        ]
+      }
+    ]
+  }
 {% endschema %}
